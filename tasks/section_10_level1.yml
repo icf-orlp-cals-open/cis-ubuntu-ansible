@@ -31,12 +31,19 @@
       - section10.1
       - section10.1.2
 
+  - debug: var=pass_min_days
+    tags:
+      - section10.1.2
+  - debug: var=pass_min_days.stdout_lines
+    tags:
+      - section10.1.2
+
   - name: 10.1.2.2 Set Password Change Minimum Number of Days (Scored)
     lineinfile: >
         dest='/etc/login.defs'
         line='PASS_MIN_DAYS 7'
         regexp='^PASS_MIN_DAYS'
-    when: pass_min_days.stdout_lines < 7
+    when: "{{pass_min_days.stdout_lines | int}} < 7"
     tags:
       - section10
       - section10.1
